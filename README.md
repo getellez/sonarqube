@@ -34,13 +34,15 @@ Now, you can run the docker compose again and everything must be fine.
 # Sonar Scanner
 The Sonar Scanner is the part that analyze our project and send the results to the SonarQube server.
 
-### Installation
-Basically the installation consists in two steps
-1. Download sonar scanner from [the official website](https://docs.sonarqube.org/latest/setup/get-started-2-minutes/)
-2. Config the linux env variables
-``` bash
-vim ~/.bashrc # Or ~/.zshrc
-export PATH=$PATH:/your_folder_sonar_scanner/sonar-scanner/bin
+## Using Sonar Scanner Docker image 
+In order to avoid the installation of the Sonar Scanner in our machine, we can use the sonar scanner docker image and pass some arguments in the CLI like the `SONAR_HOST_URL` and the `SONAR_LOGIN`
+```
+docker run \
+    --rm \
+    -e SONAR_HOST_URL="http://${SONARQUBE_URL}" \
+    -e SONAR_LOGIN="myAuthenticationToken" \
+    -v "${YOUR_REPO}:/usr/src" \
+    sonarsource/sonar-scanner-cli
 ```
 
 ### Usage
